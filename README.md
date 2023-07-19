@@ -1,7 +1,19 @@
 
+# UbiPose: Towards Ubiquitous Outdoor AR Pose Tracking using Aerial Meshes
+
+This is an implementation of the paper *UbiPose: Towards Ubiquitous Outdoor AR Pose Tracking using Aerial Meshes*
+
+## To download
+
+This will also download the submodules.
+
+```
+git clone --recurse-submodules https://github.com/USC-NSL/UbiPose.git
+```
+
 ## Environment setup
 
-We recommend using docker to setup the developement environment. A dockerfile is provided. To build the docker image please run
+We recommend using docker to setup the developement environment. A Dockerfile is provided. To build the docker image please run
 ```
 docker build -t ubipose .
 ```

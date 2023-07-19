@@ -5,7 +5,7 @@ controller:
   # renderer
   vertex_file: "data/mesh.vert"
   fragment_file: "data/mesh.frag"
-  mesh_file: "data/meshes/san_jose_dt/sanjose_dt.obj"
+  mesh_file: "data/city/san_jose_dt/sanjose_dt.obj"
 
   # colmap
   reconstruction_path: "data/city/reconstruction"

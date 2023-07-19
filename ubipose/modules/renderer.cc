@@ -6,6 +6,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <absl/log/check.h>
 #include <absl/log/log.h>
 #include <assimp/Importer.hpp>
 #include <assimp/cimport.h>
@@ -160,7 +161,6 @@ namespace ubipose {
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 constexpr int kMaxEglDevice = 32;
-constexpr int kDeviceIndex = 1;
 constexpr int kNumAttrib = 3;
 const int kBorderColor[4] = {255, 255, 255, 255};
 // constexpr int VIEWPORT_WIDTH = 640;
@@ -228,13 +228,26 @@ void MeshRenderer::InitEGL() {
   EGLint numDevices;
   eglQueryDevicesEXT(kMaxEglDevice, devices, &numDevices);
 
+  int cuda_device_index = -1;
+  int mesa_device_index = -1;
   for (int i = 0; i < numDevices; i++) {
-    const char *device_str =
+    const char *device_cstr =
         eglQueryDeviceStringEXT(devices[i], EGL_EXTENSIONS);
-    std::cerr << "found device " << device_str << std::endl;
+    std::string device_str(device_cstr);
+    if (device_str.find("cuda") != std::string::npos) {
+      cuda_device_index = i;
+    } else if (device_str.find("MESA") != std::string::npos) {
+      mesa_device_index = i;
+    }
+    std::cerr << "found device " << device_cstr << std::endl;
   }
-  EGLDisplay eglDpy = eglGetPlatformDisplayEXT(EGL_PLATFORM_DEVICE_EXT,
-                                               devices[kDeviceIndex], 0);
+  CHECK(cuda_device_index != -1 || mesa_device_index != -1)
+      << "Cannot find cuda device or mesa device";
+
+  EGLDisplay eglDpy = eglGetPlatformDisplayEXT(
+      EGL_PLATFORM_DEVICE_EXT,
+      devices[cuda_device_index != -1 ? cuda_device_index : mesa_device_index],
+      0);
   CheckEGLErrorAt("eglGetPlatformDisplayEXT");
 
   EGLint major, minor;

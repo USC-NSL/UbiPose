@@ -1,0 +1,50 @@
+controller:
+  image_height: 480
+  image_width: 640
+
+  # renderer
+  vertex_file: "data/mesh.vert"
+  fragment_file: "data/mesh.frag"
+  mesh_file: "data/meshes/san_jose_dt/sanjose_dt.obj"
+
+  # colmap
+  reconstruction_path: "data/city/reconstruction"
+  transform_to_mesh_path: "data/city/transform.txt"
+  colmap_image_prefix: "arkit/"
+  output_transformed_colmap_path: "data/city/transformed"
+
+  # superpoint and superglue
+  model_config_file: "configs/superpointglue_config_ios.yaml"
+  model_weight_folder: "weights"
+
+  # 0 for baseline 3x
+  # 1 for 1x sg
+  # 2 for all optmization
+  method: 2
+
+  # Early exit
+  do_early_exit: true
+  early_exit_num_matches: 100
+
+  # Thresholds
+  #  For strong result
+  strong_inlier_ratio: 0.8
+  strong_superglue_matches: 200
+  strong_error_R: 3.0
+  strong_error_t: 5.0
+
+  # For weak result
+  weak_inlier_ratio: 0.4
+  weak_error_R: 1.0
+  weak_error_t: 0.5
+
+  num_vio_sec_before_loss: 20
+
+  perform_localization: true
+  output_images: false
+  output_images_folder: ""
+  output_localization_path: "result.csv"
+  output_stats_path: "stats.csv"
+  output_mesh_pose_file: "mesh_poses.csv"
+  debugging: false
+

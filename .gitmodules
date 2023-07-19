@@ -1,0 +1,10 @@
+[submodule "thirdparty/-b"]
+	path = thirdparty/-b
+	url = https://github.com/abseil/abseil-cpp.git
+[submodule "thirdparty/abseil-cpp"]
+	path = thirdparty/abseil-cpp
+	url = https://github.com/abseil/abseil-cpp.git
+	branch = lts_2023_01_25
+[submodule "thirdparty/SuperPoint-SuperGlue-TensorRT"]
+	path = thirdparty/SuperPoint-SuperGlue-TensorRT
+	url = https://github.com/oscarpang/SuperPoint-SuperGlue-TensorRT.git

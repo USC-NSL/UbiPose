@@ -39,7 +39,7 @@ docker run --runtime nvidia --privileged --rm -it -v ${PATH_TO_UBIPOSE}:/ubipose
 ```
 
 
-## To build
+## Compilation
 Go to Ubipose's project folder
 
 Run the following commands in your container
@@ -50,7 +50,7 @@ cmake -DCMAKE_BUILD_TYPE=Release .. && \
 make -j
 ```
 
-## To run
+## Run
 
 ### Prepare the data
 
@@ -89,7 +89,7 @@ Under the project folder (NOT the build folder)
 ### Note about running the pipeline
 Running the code for the first time might take significant long time. This is because the NVIDIA's TensorRT framework is optimizing the SuperPoint and SuperGlue models in to the TensorRT engines for your GPU. We try to provide the corresponding engine files, but it's up to TensorRT's heuristic to determine if our engine file could run on your GPU hardware. It would take up to **30min** (on a CUDA desktop) or **60min** (on a Jetson NX) to finish the conversion. After the first run, the program skip the the conversion process in the future run (unless the input sizes changed).
 
-## To evaluate accuracy and runtime
+## Evaluation
 
 Install the required libraries for the evaluation script
 ```

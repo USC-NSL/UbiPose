@@ -13,7 +13,10 @@ git clone --recurse-submodules https://github.com/USC-NSL/UbiPose.git
 
 ## Environment setup
 
-We recommend using docker to setup the developement environment. A Dockerfile is provided. To build the docker image please run
+We recommend using docker to setup the developement environment. Two Dockerfiles are provided. 
+
+To build the docker image please run
+### On a CUDA desktop
 ```
 docker build -t ubipose .
 ```
@@ -23,33 +26,55 @@ To run the container and mount ubipose repo to the container. The privileged fla
 docker run --gpus all --privileged --rm -it -v ${PATH_TO_UBIPOSE}:/ubipose --name ubipose ubipose
 ```
 
+### On a Jetson NX
+
+```
+docker build -t ubipose -f Dockerfile.jetson .
+```
+
+To run the container and mount ubipose repo to the container. Notice the way to enable GPU is slightly different than the desktop version (tested on Jetson NX with JetPack 5.0.2)
+```
+docker run --runtime nvidia --privileged --rm -it -v ${PATH_TO_UBIPOSE}:/workspace --name ubipose ubipose
+```
+
+
 ## To build
+Go to Ubipose's project folder
+
 Run the following commands in your container
 
 ```
-UbiPose# mkdir build && cd build
-UbiPose/build# cmake -DCMAKE_BUILD_TYPE=Release ..
-UbiPose/build# make -j
+mkdir build && cd build && \
+cmake -DCMAKE_BUILD_TYPE=Release .. && \
+make -j
 ```
 
-## To Run
+## To run
 Under the project folder (NOT the build folder)
 
+### On a CUDA desktop
 ```
-UbiPose# ./build/ubipose/ubipose_pipeline_main_ios_data --arkit_directory ./data/city/arkit/ --config_file=./configs/ubipose_controller_city.yaml  --use_aranchor=false --start_timestamp=1678565810 --end_timestamp=1678566005 
+./build/ubipose/ubipose_pipeline_main_ios_data --arkit_directory ./data/city/arkit/ --config_file=./configs/ubipose_controller_city.yaml  --use_aranchor=false --start_timestamp=1678565810 --end_timestamp=1678566005 
 ```
 
-## To evaluate error
+### On a Jetson NX
+```
+./build/ubipose/ubipose_pipeline_main_ios_data --arkit_directory ./data/city/arkit/ --config_file=./configs/ubipose_controller_city_nx.yaml  --use_aranchor=false --start_timestamp=1678565810 --end_timestamp=1678566005 
+```
+
+
+## To evaluate accuracy and runtime
 
 Install the required libraries for the evaluation script
 ```
-UbiPose# cd python
-UbiPose/python# python3 -m pip install -r requirements.txt
+cd python && python3 -m pip install -r requirements.txt
 ```
 
-To the evaluation script:
+**Under the project folder**
+
+Run the evaluation script:
 ```
-UbiPose# python3 python/meshloc_stats.py --colmap_image_txt data/city/transformed/images.txt --results result.csv --stats stats.csv
+python3 python/meshloc_stats.py --colmap_image_txt data/city/transformed/images.txt --results result.csv --stats stats.csv
 ```
 
 

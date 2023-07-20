@@ -100,7 +100,7 @@ cd python && python3 -m pip install -r requirements.txt
 
 Run the evaluation script:
 ```
-python3 python/meshloc_stats.py --colmap_image_txt data/city/transformed/images.txt --results result.csv --stats stats.csv
+python3 python/ubipose_stats.py --colmap_image_txt data/city/transformed/images.txt --results result.csv --stats stats.csv
 ```
 
 Expected output:
@@ -128,9 +128,9 @@ Median latency = 364.00ms, 95th latency = 852.70ms
 
 Please ignore the warning of numeric overflow like the following. This is due to the uninitialized vio result.
 ```
-python/meshloc_stats.py:33: RuntimeWarning: overflow encountered in scalar power
+python/ubipose_stats.py:33: RuntimeWarning: overflow encountered in scalar power
   1 - 2 * qvec[2] ** 2 - 2 * qvec[3] ** 2,
-python/meshloc_stats.py:39: RuntimeWarning: overflow encountered in scalar power
+python/ubipose_stats.py:39: RuntimeWarning: overflow encountered in scalar power
   1 - 2 * qvec[1] ** 2 - 2 * qvec[3] ** 2,
 /usr/local/lib/python3.8/dist-packages/numpy/core/fromnumeric.py:1774: RuntimeWarning: invalid value encountered in reduce
   return asanyarray(a).trace(offset=offset, axis1=axis1, axis2=axis2, dtype=dtype, out=out)

@@ -26,6 +26,7 @@ BaseImage = collections.namedtuple(
 
 
 def qvec2rotmat(qvec):
+    qvec = np.asarray(qvec).astype(np.float64)
     return np.array(
         [
             [
@@ -327,10 +328,7 @@ def main(argv):
 
     result_df.sort_values(by="filename", inplace=True)
 
-    # print(result_df[result_df['error_R'] > 1])
-
     stats_df = parseStatsFile(stats)
-    # stats_df.to_csv("stats_df.csv")
 
     merged_df = result_df.merge(stats_df, on="filename")
     merged_df["vio_error_q"] = 0

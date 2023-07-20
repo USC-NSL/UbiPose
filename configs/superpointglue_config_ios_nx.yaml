@@ -9,8 +9,10 @@ superpoint:
   output_tensor_names:
     - "scores"
     - "descriptors"
-  onnx_file: "superpoint_v1_sim_int32_nx.onnx"
-  engine_file: "superpoint_v1_sim_int8_ios_data_nx.engine"
+      #  onnx_file: "superpoint_v1_sim_int32_nx.onnx"
+      #  engine_file: "superpoint_v1_sim_int8_ios_data_nx.engine"
+  onnx_file: "superpoint_v1.onnx"
+  engine_file: "superpoint_v1_nx.engine"
   dla_core: -1 
 
 superglue:

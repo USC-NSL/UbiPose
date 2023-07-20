@@ -62,6 +62,8 @@ Under the project folder (NOT the build folder)
 ./build/ubipose/ubipose_pipeline_main_ios_data --arkit_directory ./data/city/arkit/ --config_file=./configs/ubipose_controller_city_nx.yaml  --use_aranchor=false --start_timestamp=1678565810 --end_timestamp=1678566005 
 ```
 
+### Note about running the pipeline
+Running the code for the first time might take significant long time. This is because the NVIDIA's TensorRT framework is optimizing the SuperPoint and SuperGlue models in to the TensorRT engines for your GPU. We try to provide the corresponding engine files, but it's up to TensorRT's heuristic to determine if our engine file could run on your GPU hardware. It would take up to **30min** (on a CUDA desktop) or **60min** (on a Jetson NX) to finish the conversion. After the first run, the program skip the the conversion process in the future run (unless the input sizes changed).
 
 ## To evaluate accuracy and runtime
 
@@ -76,6 +78,5 @@ Run the evaluation script:
 ```
 python3 python/meshloc_stats.py --colmap_image_txt data/city/transformed/images.txt --results result.csv --stats stats.csv
 ```
-
 
 

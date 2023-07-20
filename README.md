@@ -54,7 +54,7 @@ make -j
 
 ### Prepare the data
 
-Please download the city.zip un decompress it under ```data/``` folder. The folder structure of ```data/``` should look like this.
+Please download the city.zip and decompress it under ```data/``` folder. The folder structure of ```data/``` should look like this.
 
 ```
 ├── data

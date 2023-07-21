@@ -1,5 +1,6 @@
 #include "configs.h"
 
+#include <Eigen/Dense>
 #include <iostream>
 
 #include <absl/log/log.h>
@@ -21,6 +22,24 @@ ReadMeshlocConfigs(const std::string &config_path) {
   ubipose::UbiposeConfigs meshloc_config;
   meshloc_config.image_height = controller_node["image_height"].as<int>();
   meshloc_config.image_width = controller_node["image_width"].as<int>();
+
+  YAML::Node initial_pose_node = controller_node["initial_pose"];
+  if (initial_pose_node) {
+    meshloc_config.initial_pose = ConfigInitialPose{
+        .image_timestamp = initial_pose_node["image_timestamp"].as<size_t>(),
+        .qvec =
+            Eigen::Vector4d{
+                initial_pose_node["qvec"]["qw"].as<double>(),
+                initial_pose_node["qvec"]["qx"].as<double>(),
+                initial_pose_node["qvec"]["qy"].as<double>(),
+                initial_pose_node["qvec"]["qz"].as<double>(),
+            },
+        .tvec = Eigen::Vector3d{
+            initial_pose_node["tvec"]["tx"].as<double>(),
+            initial_pose_node["tvec"]["ty"].as<double>(),
+            initial_pose_node["tvec"]["tz"].as<double>(),
+        }};
+  }
 
   meshloc_config.vertex_file = controller_node["vertex_file"].as<std::string>();
   meshloc_config.fragment_file =
@@ -69,7 +88,7 @@ ReadMeshlocConfigs(const std::string &config_path) {
   meshloc_config.output_images = controller_node["output_images"].as<bool>();
   meshloc_config.output_images_folder =
       controller_node["output_images_folder"].as<std::string>();
-  ;
+
   meshloc_config.output_localization_path =
       controller_node["output_localization_path"].as<std::string>();
   meshloc_config.output_stats_path =
@@ -77,7 +96,6 @@ ReadMeshlocConfigs(const std::string &config_path) {
   meshloc_config.output_mesh_pose_path =
       controller_node["output_mesh_pose_file"].as<std::string>();
   meshloc_config.debugging = controller_node["debugging"].as<bool>();
-  ;
 
   return meshloc_config;
 }

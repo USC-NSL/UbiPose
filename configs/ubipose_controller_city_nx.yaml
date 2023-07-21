@@ -2,6 +2,19 @@ controller:
   image_height: 480
   image_width: 640
 
+  initial_pose:
+    image_timestamp: 1678565810146640
+
+    qvec:
+      qw: 0.06
+      qx: 1.00
+      qy: 0.02
+      qz: 0.05
+    tvec:
+      tx: 74
+      ty: -49
+      tz: 202
+
   # renderer
   vertex_file: "data/mesh.vert"
   fragment_file: "data/mesh.frag"

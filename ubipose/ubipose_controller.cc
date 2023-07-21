@@ -197,8 +197,6 @@ void UbiposeController::Stop() {
 
 std::pair<Eigen::Vector4d, Eigen::Vector3d>
 UbiposeController::InitializeLocalize(const UbiposeQuery &query) {
-  LOG(INFO) << "Initialize Meshloc image at " << std::setprecision(20)
-            << query.image_timestamp << " vo at " << query.vio_timestamp;
   auto sfm_result =
       initial_pose_provider_->GetInitialExtrinsicAt(query.image_timestamp);
 
@@ -207,6 +205,9 @@ UbiposeController::InitializeLocalize(const UbiposeQuery &query) {
     return {{}, {}};
   }
   auto [sfm_qvec, sfm_tvec] = *sfm_result;
+  LOG(INFO) << "Initialize Meshloc image at " << std::setprecision(20)
+            << query.image_timestamp << " vo at " << query.vio_timestamp
+            << " qvec = " << sfm_qvec << " tvec = " << sfm_tvec;
   auto sfm_extrinsic = ColmapVec2GlExtrinsic(sfm_qvec, sfm_tvec);
 
   prev_sfm_qvec_ = sfm_qvec;

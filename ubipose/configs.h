@@ -3,11 +3,21 @@
 
 #include <optional>
 #include <string>
+
+#include <Eigen/Dense>
 namespace ubipose {
+
+struct ConfigInitialPose {
+  size_t image_timestamp;
+  Eigen::Vector4d qvec;
+  Eigen::Vector3d tvec;
+};
 
 struct UbiposeConfigs {
   int image_height;
   int image_width;
+
+  std::optional<ConfigInitialPose> initial_pose;
 
   // Renderer
   std::string vertex_file;

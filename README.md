@@ -1,15 +1,16 @@
 
 # UbiPose: Towards Ubiquitous Outdoor AR Pose Tracking using Aerial Meshes
 
-This is an implementation of the paper *UbiPose: Towards Ubiquitous Outdoor AR Pose Tracking using Aerial Meshes*
+This is an implementation of the system described in the paper *UbiPose: Towards Ubiquitous Outdoor AR Pose Tracking using Aerial Meshes*
 
 ## To download
-
-This will also download the submodules.
 
 ```
 git clone --recurse-submodules https://github.com/USC-NSL/UbiPose.git
 ```
+
+This will also download the submodules.
+
 
 ## Environment setup
 
@@ -22,18 +23,18 @@ Please install docker and required NVIDIA container [toolkits](https://docs.nvid
 docker build -t ubipose .
 ```
 
-To run the container and mount ubipose repo to the container. The privileged flag is needed to enable EGL headless rendering.
+To run the container and mount the ubipose repo to the container, run the following command. The privileged flag is needed to enable EGL headless rendering.
 ```
 docker run --gpus all --privileged --rm -it -v ${PATH_TO_UBIPOSE}:/ubipose --name ubipose ubipose
 ```
 
 ### On a Jetson NX
-To install the required environment to run NVIDIA containers on Jetson, please follow the prerequisites at this [link](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack).
+To install the required environment to run NVIDIA containers on Jetson, please follow the prerequisites at this [link](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack). 
 ```
 docker build -t ubipose -f Dockerfile.jetson .
 ```
 
-To run the container and mount ubipose repo to the container. Notice the way to enable GPU is slightly different than the desktop version (tested on Jetson NX with JetPack 5.0.2)
+To run the container and mount ubipose repo to the container, run the following command. Notice the way to enable GPU is slightly different than the desktop version (tested on Jetson NX with JetPack 5.0.2)
 ```
 docker run --runtime nvidia --privileged --rm -it -v ${PATH_TO_UBIPOSE}:/ubipose --name ubipose ubipose
 ```
@@ -74,7 +75,7 @@ Please download the city.zip and decompress it under ```data/``` folder. The fol
 │   │   └── transform.txt
 ```
 
-Under the project folder (NOT the build folder)
+Under the project folder (NOT the build folder):
 
 ### On a CUDA desktop
 ```
@@ -87,7 +88,7 @@ Under the project folder (NOT the build folder)
 ```
 
 ### Note about running the pipeline
-Running the code for the first time might take significant long time. This is because the NVIDIA's TensorRT framework is optimizing the SuperPoint and SuperGlue models in to the TensorRT engines for your GPU. We try to provide the corresponding engine files, but it's up to TensorRT's heuristic to determine if our engine file could run on your GPU hardware. It would take up to **30min** (on a CUDA desktop) or **60min** (on a Jetson NX) to finish the conversion. After the first run, the program skip the the conversion process in the future run (unless the input sizes changed).
+Running the code for the first time might take a significantly long time. This is because the NVIDIA's TensorRT framework optimizes the SuperPoint and SuperGlue models in to the TensorRT engines for your GPU. We try to provide the corresponding engine files, but it's up to TensorRT's heuristics to determine if our engine file could run on your GPU hardware. It can take up to **30min** (on a CUDA desktop) or **60min** (on a Jetson NX) to finish the conversion. After the first run, the program skips the the conversion process in future runs (unless the input sizes change).
 
 ## Evaluation
 
@@ -126,7 +127,7 @@ Percentage of cache localized frames 0.489691
 Median latency = 364.00ms, 95th latency = 852.70ms
 ```
 
-Please ignore the warning of numeric overflow like the following. This is due to the uninitialized vio result.
+Please ignore the warning of numeric overflow like the following. This is due to the uninitialized VIO result.
 ```
 python/ubipose_stats.py:33: RuntimeWarning: overflow encountered in scalar power
   1 - 2 * qvec[2] ** 2 - 2 * qvec[3] ** 2,

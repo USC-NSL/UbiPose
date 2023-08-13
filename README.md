@@ -53,6 +53,10 @@ make -j
 
 ## Run
 
+### Prepare the mesh
+
+Please follow this tutorial [video](https://www.youtube.com/watch?v=My5HoPfOxfg) for extracting aerial meshes using [RenderDoc](https://renderdoc.org/builds), [Blender](https://www.blender.org/download/lts/) and [MapModelImporter](https://github.com/eliemichel/MapsModelsImporter). Please refer to MapModelImporter's [release](https://github.com/eliemichel/MapsModelsImporter/releases) page for a correct combination of software versions.
+
 ### Prepare the data
 
 Please download the city.zip and decompress it under ```data/``` folder. The folder structure of ```data/``` should look like this.
